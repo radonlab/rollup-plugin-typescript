@@ -6,6 +6,9 @@
   "repository": "https://github.com/radonlab/rollup-plugin-typescript.git",
   "author": "skylerlee <skyler.ac.lee@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint *.js"
+  },
   "peerDependencies": {
     "typescript": "^2.7.2"
   },
