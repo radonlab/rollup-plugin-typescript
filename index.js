@@ -4,11 +4,17 @@
  * found in the LICENSE file.
  */
 
+import _ from 'lodash'
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
 
+const defaultOptions = {
+  include: '*.ts+(|x)',
+  exclude: '*.d.ts'
+}
+
 export default function typescript (options) {
-  options = assign({}, default, options)
+  options = _.assign({}, defaultOptions, options)
   let confFile = findup('tsconfig.json')
   let tsConfig = fs.readJSONSync(confFile)
   let compilerOptions = getCompilerOptions(tsConfig)
