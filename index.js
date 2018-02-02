@@ -5,10 +5,9 @@
  */
 
 import _ from 'lodash'
-import fs from 'fs-extra'
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
-import { getCompilerOptions } from './options'
+import { loadTsConfig, getCompilerOptions } from './options'
 import { resolveHost } from './hosts'
 
 const defaultOptions = {
@@ -18,8 +17,7 @@ const defaultOptions = {
 
 export default function typescript (options) {
   options = _.assign({}, defaultOptions, options)
-  let confFile = findup('tsconfig.json')
-  let tsConfig = fs.readJSONSync(confFile)
+  let tsConfig = loadTsConfig(process.cwd())
   let compilerOptions = getCompilerOptions(tsConfig)
 
   return {

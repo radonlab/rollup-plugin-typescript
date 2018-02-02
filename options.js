@@ -4,6 +4,14 @@
  * found in the LICENSE file.
  */
 
+import fs from 'fs-extra'
+import ts from 'typescript'
+
+export function loadTsConfig () {
+  let confFile = findup('tsconfig.json')
+  return fs.readJSONSync(confFile)
+}
+
 export function getCompilerOptions (config) {
   let options = config.compilerOptions || {}
   // noEmitHelpers: true
