@@ -21,6 +21,7 @@ export default function typescript (options) {
   let compilerOptions = getCompilerOptions(tsConfig)
 
   return {
+    // Resolve module by Id
     resolveId (importee, importer) {
       if (!importer) { return null }
       let result = ts.nodeModuleNameResolver(
@@ -30,6 +31,7 @@ export default function typescript (options) {
         resolveHost)
       return _.get(result, 'resolvedModule.resolvedFileName', null)
     },
+    // Transpile typescript code
     transform (code, id) {
       let compiled = ts.transpileModule(code, {
         fileName: id,
