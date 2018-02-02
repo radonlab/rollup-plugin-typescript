@@ -8,5 +8,8 @@
   "license": "MIT",
   "devDependencies": {
     "rollup-pluginutils": "^2.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^2.7.2"
   }
 }
