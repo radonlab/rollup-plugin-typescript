@@ -5,8 +5,11 @@
  */
 
 import _ from 'lodash'
+import fs from 'fs-extra'
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
+import { getCompilerOptions } from './options'
+import { resolveHost } from './hosts'
 
 const defaultOptions = {
   include: '*.ts+(|x)',
