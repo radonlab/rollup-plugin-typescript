@@ -6,10 +6,11 @@
   "repository": "https://github.com/radonlab/rollup-plugin-typescript.git",
   "author": "skylerlee <skyler.ac.lee@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "rollup-pluginutils": "^2.0.1"
-  },
   "peerDependencies": {
     "typescript": "^2.7.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "rollup-pluginutils": "^2.0.1"
   }
 }
