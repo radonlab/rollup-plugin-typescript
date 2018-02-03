@@ -6,9 +6,23 @@
 
 import fs from 'fs-extra'
 import ts from 'typescript'
+import path from 'path'
 
-export function loadTsConfig () {
-  let confFile = findup('tsconfig.json')
+function findup (name, cwd) {
+  let dir = path.resolve(cwd)
+  let target = ''
+  while (dir !== '') {
+    target = path.join(dir, name)
+    if (fs.existsSync(target)) {
+      return target
+    }
+    dir = dir.substring(0, dir.lastIndexOf(path.sep))
+  }
+  return null
+}
+
+export function loadTsConfig (cwd) {
+  let confFile = findup('tsconfig.json', cwd)
   return fs.readJSONSync(confFile)
 }
 
