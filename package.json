@@ -12,7 +12,8 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint *.js",
-    "test": "mocha"
+    "test": "mocha",
+    "prepublish": "npm run build"
   },
   "peerDependencies": {
     "typescript": "^2.7.2"
