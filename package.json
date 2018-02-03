@@ -7,6 +7,7 @@
   "author": "skylerlee <skyler.ac.lee@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "rollup -c",
     "lint": "eslint *.js",
     "test": "mocha"
   },
