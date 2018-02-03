@@ -34,3 +34,6 @@ node_modules/
 
 # Generated test file
 test_gen/
+
+# Distributed file
+dist/
