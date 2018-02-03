@@ -912,6 +912,10 @@ rollup-pluginutils@^2.0.1:
     estree-walker "^0.3.0"
     micromatch "^2.3.11"
 
+rollup@^0.56.4:
+  version "0.56.4"
+  resolved "http://registry.npm.taobao.org/rollup/download/rollup-0.56.4.tgz#84c3d08b37bd63189c4517d2faad405412ebb8fc"
+
 run-async@^2.2.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/run-async/download/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
