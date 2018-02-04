@@ -1,3 +1,5 @@
+'use strict'
+
 const rollup = require('rollup')
 const tsPlugin = require('..')
 
