@@ -38,9 +38,11 @@ export default function typescript (options) {
         reportDiagnostics: true,
         compilerOptions
       })
+      let sourceMap = compiled.sourceMapText
+      sourceMap = sourceMap && JSON.parse(sourceMap)
       return {
         code: compiled.outputText,
-        map: JSON.parse(compiled.sourceMapText)
+        map: sourceMap
       }
     }
   }
