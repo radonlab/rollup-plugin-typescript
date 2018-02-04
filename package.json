@@ -24,6 +24,7 @@
     "rollup-pluginutils": "^2.0.1"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.18.2",
     "mocha": "^5.0.1",
     "rollup": "^0.56.4"
