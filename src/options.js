@@ -23,6 +23,7 @@ function findup (name, cwd) {
 
 export function loadTsConfig (cwd) {
   let confFile = findup('tsconfig.json', cwd)
+  if (!confFile) { return {} }
   return fs.readJSONSync(confFile)
 }
 
