@@ -4,6 +4,7 @@ export default {
     'fs',
     'fs-extra',
     'lodash',
+    'path',
     'rollup-pluginutils',
     'typescript'
   ],
