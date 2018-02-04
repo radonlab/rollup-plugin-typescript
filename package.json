@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "lint": "eslint *.js",
+    "lint": "eslint src/**/*.js test/**/*.js",
     "test": "mocha",
     "prepublish": "npm run build"
   },
