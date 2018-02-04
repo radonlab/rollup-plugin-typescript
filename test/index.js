@@ -3,16 +3,16 @@
 const rollup = require('rollup')
 const tsPlugin = require('..')
 
-function bundle (input) {
+process.chdir(__dirname)
+
+function bundle (entry, config={}) {
   let options = {
-    input,
+    input: entry,
     plugins: [
-      tsPlugin()
+      tsPlugin(config)
     ]
   }
-  return new Promise((resolve, reject) => {
-    rollup.rollup(options).then(resolve, reject)
-  })
+  return rollup.rollup(options)
 }
 
 describe('rollup-plugin-typescript', function () {
