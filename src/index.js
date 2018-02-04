@@ -16,7 +16,7 @@ const defaultOptions = {
 }
 
 export default function typescript (options) {
-  options = _.assign({}, defaultOptions, options)
+  options = _.defaults(options, defaultOptions)
   let tsConfig = loadTsConfig(process.cwd())
   let compilerOptions = getCompilerOptions(tsConfig)
 
