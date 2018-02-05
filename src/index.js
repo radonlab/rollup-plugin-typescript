@@ -16,9 +16,9 @@ const defaultOptions = {
 }
 
 export default function typescript (options) {
-  options = _.defaults(options, defaultOptions)
-  let tsConfig = loadTsConfig(process.cwd())
-  let compilerOptions = getCompilerOptions(tsConfig)
+  let tsOptions = loadTsConfig(process.cwd())
+  options = _.defaults(options, tsOptions, defaultOptions)
+  let compilerOptions = getCompilerOptions(options)
 
   return {
     // Resolve module by Id
