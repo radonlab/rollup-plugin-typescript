@@ -7,17 +7,25 @@
 import _ from 'lodash'
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
-import { loadTsConfig, getCompilerOptions } from './options'
 import { resolveHost } from './hosts'
+import {
+  loadTsConfig,
+  validateOptions,
+  getCompilerOptions
+} from './options'
 
 const defaultOptions = {
   include: '*.ts+(|x)',
-  exclude: '*.d.ts'
+  exclude: '*.d.ts',
+  compilerOptions: {
+    module: 'es2015'
+  }
 }
 
 export default function typescript (options) {
   let tsOptions = loadTsConfig(process.cwd())
-  options = _.defaults(options, tsOptions, defaultOptions)
+  options = _.defaultsDeep(options, tsOptions, defaultOptions)
+  validateOptions(options)
   let compilerOptions = getCompilerOptions(options)
 
   return {

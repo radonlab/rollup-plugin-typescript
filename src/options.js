@@ -27,9 +27,11 @@ export function loadTsConfig (cwd) {
   return fs.readJSONSync(confFile)
 }
 
-export function getCompilerOptions (config) {
-  let options = config.compilerOptions || {}
-  // noEmitHelpers: true
-  let r = ts.convertCompilerOptionsFromJson(options, process.cwd())
+export function validateOptions (options) {
+}
+
+export function getCompilerOptions (options) {
+  let opts = options.compilerOptions || {}
+  let r = ts.convertCompilerOptionsFromJson(opts, process.cwd())
   return r.options
 }
