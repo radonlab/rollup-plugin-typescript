@@ -15,8 +15,8 @@ import {
 } from './options'
 
 const defaultOptions = {
-  include: '*.ts+(|x)',
-  exclude: '*.d.ts',
+  include: ['*.ts+(|x)', '**/*.ts+(|x)'],
+  exclude: ['*.d.ts', '**/*.d.ts'],
   compilerOptions: {
     module: 'es2015'
   }
@@ -27,6 +27,7 @@ export default function typescript (options) {
   options = _.defaultsDeep(options, tsOptions, defaultOptions)
   validateOptions(options)
   let compilerOptions = getCompilerOptions(options)
+  let filter = utils.createFilter(options.include, options.exclude)
 
   return {
     // Resolve module by Id
@@ -41,6 +42,7 @@ export default function typescript (options) {
     },
     // Transpile typescript code
     transform (code, id) {
+      if (!filter(id)) { return null }
       let compiled = ts.transpileModule(code, {
         fileName: id,
         reportDiagnostics: true,
