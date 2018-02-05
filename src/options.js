@@ -8,6 +8,12 @@ import fs from 'fs-extra'
 import ts from 'typescript'
 import path from 'path'
 
+const _toLowerCase = String.prototype.toLowerCase
+
+function lowerCase (str) {
+  return str == null ? '' : _toLowerCase.call(str)
+}
+
 function findup (name, cwd) {
   let dir = path.resolve(cwd)
   let target = ''
@@ -28,6 +34,12 @@ export function loadTsConfig (cwd) {
 }
 
 export function validateOptions (options) {
+  let opts = options.compilerOptions || {}
+  let mod = lowerCase(opts.module)
+  if (mod !== 'es2015' && mod !== 'es6') {
+    throw new Error(`Invalid module format: ${mod}
+    consider using es2015/es6 for typescript`)
+  }
 }
 
 export function getCompilerOptions (options) {
