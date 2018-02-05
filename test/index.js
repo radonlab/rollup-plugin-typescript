@@ -37,4 +37,17 @@ describe('rollup-plugin-typescript', function () {
     bundle('sample/simple.ts', options)
     expect(options).to.have.property('compilerOptions')
   })
+
+  it('should transpile classes correctly', function () {
+    return bundle('sample/classes.ts').then(result => {
+      expect(result.code).to.have.string('function Test')
+    })
+  })
+
+  it('should bundle imported module correctly', function () {
+    return bundle('sample/imports.ts').then(result => {
+      expect(result.code).to.have.string('FooBar')
+    })
+  })
+
 })
