@@ -1,4 +1,4 @@
-import { Test } from './classes'
+import { Test } from './classes';
 
-let t: Test = new Test()
-console.log(t)
+let t: Test = new Test();
+console.log(t);
