@@ -22,6 +22,13 @@ function findup (name, cwd) {
   return null
 }
 
+function assertOption (options, name, cond) {
+  let value = options[name]
+  if (!cond(value)) {
+    throw new Error(`typescript: Invalid compilerOptions: "${name}": ${value}`)
+  }
+}
+
 export function loadFileOptions (cwd=process.cwd()) {
   let confFile = findup('tsconfig.json', cwd)
   return confFile && fs.readJSONSync(confFile)
@@ -29,11 +36,10 @@ export function loadFileOptions (cwd=process.cwd()) {
 
 export function validateOptions (options) {
   let opts = options.compilerOptions || {}
-  let mod = lowerCase(opts.module)
-  if (mod !== 'es2015' && mod !== 'es6') {
-    throw new Error(`Invalid module format: ${mod}
-    consider using es2015/es6 for typescript`)
-  }
+  assertOption(opts, 'module', (value) => {
+    value = lowerCase(value)
+    return value === 'es2015' || value === 'es6'
+  })
 }
 
 export function getCompilerOptions (options) {
