@@ -50,4 +50,10 @@ describe('rollup-plugin-typescript', function () {
     })
   })
 
+  it('should bundle javascript module correctly', function () {
+    return bundle('sample/imports2.ts').then(result => {
+      expect(result.code).to.have.string('BazQux')
+    })
+  })
+
 })
