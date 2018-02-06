@@ -22,10 +22,9 @@ function findup (name, cwd) {
   return null
 }
 
-export function loadTsConfig (cwd) {
+export function loadFileOptions (cwd=process.cwd()) {
   let confFile = findup('tsconfig.json', cwd)
-  if (!confFile) { return {} }
-  return fs.readJSONSync(confFile)
+  return confFile && fs.readJSONSync(confFile)
 }
 
 export function validateOptions (options) {
