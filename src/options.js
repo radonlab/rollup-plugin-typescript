@@ -4,15 +4,10 @@
  * found in the LICENSE file.
  */
 
+import path from 'path'
 import fs from 'fs-extra'
 import ts from 'typescript'
-import path from 'path'
-
-const _toLowerCase = String.prototype.toLowerCase
-
-function lowerCase (str) {
-  return str == null ? '' : _toLowerCase.call(str)
-}
+import { lowerCase } from './utils'
 
 function findup (name, cwd) {
   let dir = path.resolve(cwd)
