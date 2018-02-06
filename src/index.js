@@ -38,7 +38,14 @@ export default function typescript (options) {
         importer,
         compilerOptions,
         resolveHost)
-      return _.get(result, 'resolvedModule.resolvedFileName', null)
+      let fileName = null
+      if (result.resolvedModule && result.resolvedModule.resolvedFileName) {
+        fileName = result.resolvedModule.resolvedFileName
+      }
+      if (fileName != null && !fileName.endsWith('.d.ts')) {
+        return fileName
+      }
+      return null
     },
     // Transpile typescript code
     transform (code, id) {
