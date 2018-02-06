@@ -4,7 +4,6 @@
  * found in the LICENSE file.
  */
 
-import _ from 'lodash'
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
 import { resolveHost } from './hosts'
