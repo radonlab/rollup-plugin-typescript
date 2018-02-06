@@ -8,7 +8,8 @@ import ts from 'typescript'
 import utils from 'rollup-pluginutils'
 import { resolveHost } from './hosts'
 import {
-  loadTsConfig,
+  mergeOptions,
+  loadFileOptions,
   validateOptions,
   getCompilerOptions
 } from './options'
@@ -22,8 +23,8 @@ const defaultOptions = {
 }
 
 export default function typescript (options) {
-  let tsOptions = loadTsConfig(process.cwd())
-  options = _.defaultsDeep(options, tsOptions, defaultOptions)
+  let fileOptions = loadFileOptions()
+  options = mergeOptions({}, defaultOptions, fileOptions, options)
   validateOptions(options)
   let compilerOptions = getCompilerOptions(options)
   let filter = utils.createFilter(options.include, options.exclude)

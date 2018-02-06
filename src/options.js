@@ -7,7 +7,7 @@
 import path from 'path'
 import fs from 'fs-extra'
 import ts from 'typescript'
-import { lowerCase } from './utils'
+import { lowerCase, mergeObject } from './utils'
 
 function findup (name, cwd) {
   let dir = path.resolve(cwd)
@@ -41,3 +41,5 @@ export function getCompilerOptions (options) {
   let r = ts.convertCompilerOptionsFromJson(opts, process.cwd())
   return r.options
 }
+
+export const mergeOptions = mergeObject
