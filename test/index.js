@@ -34,6 +34,7 @@ describe('rollup-plugin-typescript', function () {
   it('should load tsconfig correctly', function () {
     let options = tsPlugin().__options
     expect(options).to.have.property('compilerOptions')
+    expect(options.compilerOptions.alwaysStrict).to.be.true
   })
 
   it('should transpile classes correctly', function () {
