@@ -29,7 +29,7 @@ function assertOption (options, name, cond) {
   }
 }
 
-export function loadFileOptions (cwd=process.cwd()) {
+export function loadFileOptions (cwd = process.cwd()) {
   let confFile = findup('tsconfig.json', cwd)
   return confFile && fs.readJSONSync(confFile)
 }
