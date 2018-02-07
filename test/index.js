@@ -26,15 +26,13 @@ describe('rollup-plugin-typescript', function () {
   })
 
   it('should respect plugin options', function () {
-    let options = {}
-    bundle('sample/simple.ts', options)
+    let options = tsPlugin().__options
     expect(options).to.have.property('include')
     expect(options).to.have.property('exclude')
   })
 
   it('should load tsconfig correctly', function () {
-    let options = {}
-    bundle('sample/simple.ts', options)
+    let options = tsPlugin().__options
     expect(options).to.have.property('compilerOptions')
   })
 

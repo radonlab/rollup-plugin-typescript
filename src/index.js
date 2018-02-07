@@ -30,6 +30,8 @@ export default function typescript (options) {
   let filter = utils.createFilter(options.include, options.exclude)
 
   return {
+    // Plugin options
+    __options: options,
     // Resolve module by Id
     resolveId (importee, importer) {
       if (!importer) { return null }
