@@ -8,9 +8,9 @@ import ts from 'typescript'
 import serviceHost from './serviceHost'
 
 class Compiler {
-  constructor (compilerOptions) {
+  constructor (options) {
     this.entities = new Set()
-    let host = serviceHost(this.entities, compilerOptions)
+    let host = serviceHost(this.entities, options)
     let registry = ts.createDocumentRegistry()
     this.service = ts.createLanguageService(host, registry)
   }
@@ -36,6 +36,6 @@ class Compiler {
   }
 }
 
-export function createCompiler () {
-  return new Compiler()
+export function createCompiler (options) {
+  return new Compiler(options)
 }
