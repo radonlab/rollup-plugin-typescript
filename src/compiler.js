@@ -5,9 +5,14 @@
  */
 
 import ts from 'typescript'
+import serviceHost from './serviceHost'
 
 class Compiler {
-  constructor (options) {
+  constructor (compilerOptions) {
+    let host = serviceHost(compilerOptions)
+    let registry = ts.createDocumentRegistry()
+    this.service = ts.createLanguageService(host, registry)
+  }
   }
 
   transpile (id, code) {
