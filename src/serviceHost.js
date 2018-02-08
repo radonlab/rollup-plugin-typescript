@@ -4,15 +4,19 @@
  * found in the LICENSE file.
  */
 
+import fs from 'fs'
 import ts from 'typescript'
 
-export default function (compilerOptions) {
+export default function (entities, compilerOptions) {
   return {
     getScriptFileNames () {
+      return Array.from(entities)
     },
     getScriptVersion (file) {
     },
-    getScriptSnapshot (file) {
+    getScriptSnapshot (filename) {
+      let text = fs.readFileSync(filename, 'utf-8')
+      return ts.ScriptSnapshot.fromString(text)
     },
     getCurrentDirectory () {
       return process.cwd()
