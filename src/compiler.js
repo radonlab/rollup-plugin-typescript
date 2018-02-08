@@ -7,8 +7,13 @@
 import ts from 'typescript'
 
 class Compiler {
+  constructor (options) {
+  }
+
+  transpile (id, code) {
+  }
 }
 
-export default function createCompiler () {
+export function createCompiler () {
   return new Compiler()
 }

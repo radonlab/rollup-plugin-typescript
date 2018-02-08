@@ -13,6 +13,7 @@ import {
   validateOptions,
   getCompilerOptions
 } from './options'
+import { createCompiler } from './compiler'
 
 const defaultOptions = {
   include: ['*.ts+(|x)', '**/*.ts+(|x)'],
@@ -27,6 +28,7 @@ export default function typescript (options) {
   options = mergeOptions({}, defaultOptions, fileOptions, options)
   validateOptions(options)
   let compilerOptions = getCompilerOptions(options)
+  let compiler = createCompiler(compilerOptions)
   let filter = utils.createFilter(options.include, options.exclude)
 
   return {
@@ -53,11 +55,7 @@ export default function typescript (options) {
     // Transpile typescript code
     transform (code, id) {
       if (!filter(id)) { return null }
-      let compiled = ts.transpileModule(code, {
-        fileName: id,
-        reportDiagnostics: true,
-        compilerOptions
-      })
+      let compiled = compiler.transpile(id, code)
       let sourceMap = compiled.sourceMapText
       sourceMap = sourceMap && JSON.parse(sourceMap)
       return {
