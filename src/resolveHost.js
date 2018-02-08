@@ -6,7 +6,7 @@
 
 import fs from 'fs'
 
-export const resolveHost = {
+export default {
   directoryExists (dirPath) {
     try {
       return fs.statSync(dirPath).isDirectory()

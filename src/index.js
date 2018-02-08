@@ -6,7 +6,7 @@
 
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
-import { resolveHost } from './hosts'
+import resolveHost from './resolveHost'
 import {
   mergeOptions,
   loadFileOptions,
