@@ -8,15 +8,32 @@ import fs from 'fs'
 import ts from 'typescript'
 
 export default function (entities, compilerOptions) {
+  const cache = new Map()
+
+  function getEntity (filename) {
+    let entity = cache.get(filename)
+    if (entity === undefined) {
+      let version = '' + Date.now()
+      let content = fs.readFileSync(filename, 'utf-8')
+      let snapshot = ts.ScriptSnapshot.fromString(content)
+      entity = {
+        version,
+        snapshot
+      }
+      cache.set(filename, entity)
+    }
+    return entity
+  }
+
   return {
     getScriptFileNames () {
       return Array.from(entities)
     },
-    getScriptVersion (file) {
+    getScriptVersion (filename) {
+      return getEntity(filename).version
     },
     getScriptSnapshot (filename) {
-      let text = fs.readFileSync(filename, 'utf-8')
-      return ts.ScriptSnapshot.fromString(text)
+      return getEntity(filename).snapshot
     },
     getCurrentDirectory () {
       return process.cwd()
