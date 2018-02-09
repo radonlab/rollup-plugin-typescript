@@ -57,7 +57,10 @@ export default function typescript (options) {
       if (!filter(id)) { return null }
       let compiled = compiler.transpile(id, code)
       let sourceMap = compiled.sourceMapText
-      sourceMap = sourceMap && JSON.parse(sourceMap)
+      if (typeof sourceMap === 'string') {
+        sourceMap = JSON.parse(sourceMap)
+      }
+
       return {
         code: compiled.outputText,
         map: sourceMap
