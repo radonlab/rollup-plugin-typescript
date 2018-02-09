@@ -15,6 +15,21 @@ class Compiler {
     this.service = ts.createLanguageService(host, registry)
   }
 
+  _convertResult (output) {
+    let result = {
+      content: undefined,
+      sourceMap: undefined
+    }
+    output.outputFiles.forEach(out => {
+      if (out.name.endsWith('.js')) {
+        result.content = out.text
+      } else if (out.name.endsWith('.map')) {
+        result.sourceMap = out.text
+      }
+    })
+    return result
+  }
+
   _getDiagnostics (filename) {
     let d0 = this.service.getCompilerOptionsDiagnostics()
     let d1 = this.service.getSyntacticDiagnostics(filename)
@@ -27,10 +42,11 @@ class Compiler {
     this.entities.add(id)
     // get compiled module
     let output = this.service.getEmitOutput(id)
+    let result = this._convertResult(output)
 
     return {
-      outputText: undefined,
-      sourceMapText: undefined,
+      outputText: result.content,
+      sourceMapText: result.sourceMap,
       diagnostics: this._getDiagnostics(id)
     }
   }
