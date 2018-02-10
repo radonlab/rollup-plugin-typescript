@@ -1,5 +1,7 @@
 export class Test {
-  private label: string = 'FooBar';
+  private label: string = '';
 
-  constructor () {}
+  constructor () {
+    this.label = 'FooBar';
+  }
 }
