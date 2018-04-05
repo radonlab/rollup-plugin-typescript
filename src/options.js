@@ -4,9 +4,8 @@
  * found in the LICENSE file.
  */
 
-import path from 'path'
 import fs from 'fs'
-import ts from 'typescript'
+import path from 'path'
 import { lowerCase, mergeObject } from './utils'
 
 function findup (name, cwd) {
