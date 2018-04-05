@@ -19,7 +19,6 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "fs-extra": "^5.0.0",
     "rollup-pluginutils": "^2.0.1"
   },
   "devDependencies": {
