@@ -29,9 +29,12 @@ function assertOption (options, name, cond) {
   }
 }
 
-export function loadFileOptions (cwd = process.cwd()) {
+export function getFileOptionsAndPath (cwd = process.cwd()) {
   let confFile = findup('tsconfig.json', cwd)
-  return confFile && fs.readJSONSync(confFile)
+  return confFile && {
+    options: fs.readJSONSync(confFile),
+    path: path.dirname(confFile)
+  }
 }
 
 export function validateOptions (options) {

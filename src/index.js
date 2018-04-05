@@ -9,7 +9,7 @@ import utils from 'rollup-pluginutils'
 import resolveHost from './resolveHost'
 import {
   mergeOptions,
-  loadFileOptions,
+  getFileOptionsAndPath,
   validateOptions,
   getCompilerOptions
 } from './options'
@@ -24,7 +24,7 @@ const defaultOptions = {
 }
 
 export default function typescript (options) {
-  let fileOptions = loadFileOptions()
+  let { options: fileOptions, path: basePath } = getFileOptionsAndPath()
   options = mergeOptions({}, defaultOptions, fileOptions, options)
   validateOptions(options)
   let compilerOptions = getCompilerOptions(options)
