@@ -8,11 +8,13 @@ import ts from 'typescript'
 import serviceHost from './serviceHost'
 
 class Compiler {
-  constructor (options) {
-    this.entities = new Set()
-    let host = serviceHost(this.entities, options)
-    let registry = ts.createDocumentRegistry()
-    this.service = ts.createLanguageService(host, registry)
+  constructor (files, compilerOptions) {
+    this.entities = new Set(files)
+    this.compilerOptions = compilerOptions
+    this.service = ts.createLanguageService(
+      serviceHost(this.entities, this.compilerOptions),
+      ts.createDocumentRegistry()
+    )
   }
 
   _convertResult (output) {
@@ -52,6 +54,7 @@ class Compiler {
   }
 }
 
-export function createCompiler (options) {
-  return new Compiler(options)
+export function createCompiler (ctx) {
+  let res = ts.parseJsonConfigFileContent(ctx.options, ts.sys, ctx.basePath)
+  return new Compiler(res.fileNames, res.options)
 }
