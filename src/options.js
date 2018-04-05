@@ -5,7 +5,7 @@
  */
 
 import path from 'path'
-import fs from 'fs-extra'
+import fs from 'fs'
 import ts from 'typescript'
 import { lowerCase, mergeObject } from './utils'
 
@@ -29,26 +29,36 @@ function assertOption (options, name, cond) {
   }
 }
 
-export function getFileOptionsAndPath (cwd = process.cwd()) {
-  let confFile = findup('tsconfig.json', cwd)
-  return confFile && {
-    options: fs.readJSONSync(confFile),
-    path: path.dirname(confFile)
+class OptionContext {
+  constructor () {
+    this.options = {}
+    this.confFile = null
+    this.basePath = null
+  }
+
+  loadFileOptions (cwd = process.cwd()) {
+    let confFile = findup('tsconfig.json', cwd)
+    if (confFile !== null) {
+      this.confFile = confFile
+      this.basePath = path.dirname(confFile)
+      return JSON.parse(fs.readFileSync(confFile, 'utf-8'))
+    }
+    return null
+  }
+
+  mergeOptions (...opts) {
+    this.options = mergeObject(this.options, ...opts)
+  }
+
+  validateOptions () {
+    let opts = this.options.compilerOptions || {}
+    assertOption(opts, 'module', (value) => {
+      value = lowerCase(value)
+      return value === 'es2015' || value === 'es6'
+    })
   }
 }
 
-export function validateOptions (options) {
-  let opts = options.compilerOptions || {}
-  assertOption(opts, 'module', (value) => {
-    value = lowerCase(value)
-    return value === 'es2015' || value === 'es6'
-  })
+export function createContext () {
+  return new OptionContext()
 }
-
-export function getCompilerOptions (options) {
-  let opts = options.compilerOptions || {}
-  let r = ts.convertCompilerOptionsFromJson(opts, process.cwd())
-  return r.options
-}
-
-export const mergeOptions = mergeObject
