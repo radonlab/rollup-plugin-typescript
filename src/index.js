@@ -19,28 +19,24 @@ const defaultOptions = {
 }
 
 export default function typescript (options) {
-  let context = createContext()
-  let fileOptions = context.loadFileOptions()
-  context.mergeOptions(defaultOptions, fileOptions, options)
-  context.validateOptions()
-  let { options: fileOptions, path: basePath } = getFileOptionsAndPath()
-  options = mergeOptions({}, defaultOptions, fileOptions, options)
-  validateOptions(options)
-  let compilerOptions = getCompilerOptions(options)
-  let compiler = createCompiler(compilerOptions)
-  let filter = utils.createFilter(options.include, options.exclude)
+  let ctx = createContext()
+  let fileOptions = ctx.loadFileOptions()
+  ctx.mergeOptions(defaultOptions, fileOptions, options)
+  ctx.validateOptions()
+  let compiler = createCompiler(ctx)
+  let filter = utils.createFilter(ctx.options.include, ctx.options.exclude)
 
   return {
     name: 'typescript',
-    // Plugin options
-    __options: options,
+    // Current options
+    __options: ctx.options,
     // Resolve module by Id
     resolveId (importee, importer) {
       if (!importer) { return null }
       let result = ts.nodeModuleNameResolver(
         importee,
         importer,
-        compilerOptions,
+        compiler.compilerOptions,
         resolveHost)
       let fileName = null
       if (result.resolvedModule && result.resolvedModule.resolvedFileName) {
