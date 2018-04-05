@@ -10,9 +10,12 @@ import resolveHost from './resolveHost'
 import { createContext } from './options'
 import { createCompiler } from './compiler'
 
-const defaultOptions = {
+const config = {
   include: ['*.ts+(|x)', '**/*.ts+(|x)'],
-  exclude: ['*.d.ts', '**/*.d.ts'],
+  exclude: ['*.d.ts', '**/*.d.ts']
+}
+
+const defaultOptions = {
   compilerOptions: {
     module: 'es2015'
   }
@@ -24,7 +27,7 @@ export default function typescript (options) {
   ctx.mergeOptions(defaultOptions, fileOptions, options)
   ctx.validateOptions()
   let compiler = createCompiler(ctx)
-  let filter = utils.createFilter(ctx.options.include, ctx.options.exclude)
+  let filter = utils.createFilter(config.include, config.exclude)
 
   return {
     name: 'typescript',
