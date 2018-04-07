@@ -46,7 +46,8 @@ export default function typescript (pluginOptions) {
         importee,
         importer,
         compilerOptions,
-        resolveHost)
+        resolveHost
+      )
       let fileName = null
       if (result.resolvedModule && result.resolvedModule.resolvedFileName) {
         fileName = result.resolvedModule.resolvedFileName
