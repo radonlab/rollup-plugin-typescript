@@ -6,14 +6,13 @@ const tsPlugin = require('..')
 
 process.chdir(__dirname)
 
-function bundle (entry, config={}) {
-  let options = {
+function bundle (entry, options={}) {
+  return rollup.rollup({
     input: entry,
     plugins: [
-      tsPlugin(config)
+      tsPlugin(options)
     ]
-  }
-  return rollup.rollup(options).then(chunk => {
+  }).then(chunk => {
     return chunk.generate({ format: 'es' })
   })
 }
@@ -26,12 +25,12 @@ describe('rollup-plugin-typescript', function () {
   })
 
   it('should respect plugin options', function () {
-    let options = tsPlugin().__options
-    expect(options).to.have.property('include')
-    expect(options).to.have.property('exclude')
+    let options = tsPlugin({ compileOnSave: false }).__options
+    expect(options).to.have.property('compileOnSave')
+    expect(options.compileOnSave).to.be.false
   })
 
-  it('should load tsconfig correctly', function () {
+  it('should respect tsconfig.json file', function () {
     let options = tsPlugin().__options
     expect(options).to.have.property('compilerOptions')
     expect(options.compilerOptions.alwaysStrict).to.be.true
