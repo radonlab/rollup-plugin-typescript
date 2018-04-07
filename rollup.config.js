@@ -7,7 +7,7 @@ export default {
     'typescript'
   ],
   output: {
-    file: 'dist/main.js',
+    file: 'dist/rollup-plugin-typescript.js',
     format: 'cjs'
   }
 }

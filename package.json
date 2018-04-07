@@ -2,7 +2,7 @@
   "name": "@radonlab/rollup-plugin-typescript",
   "version": "0.0.4",
   "description": "Rollup plugin for TypeScript",
-  "main": "dist/main.js",
+  "main": "dist/rollup-plugin-typescript.js",
   "repository": "https://github.com/radonlab/rollup-plugin-typescript.git",
   "author": "skylerlee <skyler.ac.lee@gmail.com>",
   "license": "MIT",
