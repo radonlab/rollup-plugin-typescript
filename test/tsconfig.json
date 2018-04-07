@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true
   }
 }
