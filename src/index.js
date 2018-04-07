@@ -7,7 +7,12 @@
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
 import resolveHost from './resolveHost'
-import { createContext } from './options'
+import {
+  findTsConfig,
+  loadTsConfig,
+  mergeOptions,
+  validateOptions
+} from './options'
 import { createCompiler } from './compiler'
 
 const config = {
@@ -21,25 +26,26 @@ const defaultOptions = {
   }
 }
 
-export default function typescript (options) {
-  let ctx = createContext()
-  let fileOptions = ctx.loadFileOptions()
-  ctx.mergeOptions(defaultOptions, fileOptions, options)
-  ctx.validateOptions()
-  let compiler = createCompiler(ctx)
+export default function typescript (pluginOptions) {
+  let confFile = findTsConfig()
+  let fileOptions = loadTsConfig(confFile)
+  let options = mergeOptions(defaultOptions, fileOptions, pluginOptions)
+  validateOptions(options)
+  let compilerOptions = options.compilerOptions
+  let compiler = createCompiler(compilerOptions)
   let filter = utils.createFilter(config.include, config.exclude)
 
   return {
     name: 'typescript',
     // Current options
-    __options: ctx.options,
+    __options: options,
     // Resolve module by Id
     resolveId (importee, importer) {
       if (!importer) { return null }
       let result = ts.nodeModuleNameResolver(
         importee,
         importer,
-        compiler.compilerOptions,
+        compilerOptions,
         resolveHost)
       let fileName = null
       if (result.resolvedModule && result.resolvedModule.resolvedFileName) {
