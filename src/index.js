@@ -46,7 +46,7 @@ export default function typescript (pluginOptions) {
       let result = ts.nodeModuleNameResolver(
         importee,
         importer,
-        compilerOptions,
+        parsedOptions.options,
         resolveHost
       )
       let fileName = null
