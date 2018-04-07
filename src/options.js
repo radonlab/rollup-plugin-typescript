@@ -31,8 +31,8 @@ export function mergeOptions(...opts) {
   return mergeObject({}, ...opts)
 }
 
-export function validateOptions () {
-  let opts = this.options.compilerOptions || {}
+export function validateOptions (options) {
+  let opts = options.compilerOptions || {}
   assertOption(opts, 'module', (value) => {
     value = lowerCase(value)
     return value === 'es2015' || value === 'es6'

@@ -8,11 +8,10 @@ import ts from 'typescript'
 import serviceHost from './serviceHost'
 
 class Compiler {
-  constructor (files, compilerOptions) {
-    this.entities = new Set(files)
-    this.compilerOptions = compilerOptions
+  constructor (compilerOptions) {
+    this.entities = new Set()
     this.service = ts.createLanguageService(
-      serviceHost(this.entities, this.compilerOptions),
+      serviceHost(this.entities, compilerOptions),
       ts.createDocumentRegistry()
     )
   }
