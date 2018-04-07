@@ -1,6 +1,6 @@
 {
   "name": "@radonlab/rollup-plugin-typescript",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Rollup plugin for TypeScript",
   "main": "dist/main.js",
   "repository": "https://github.com/radonlab/rollup-plugin-typescript.git",

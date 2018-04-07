@@ -6,20 +6,8 @@
 
 import fs from 'fs'
 import path from 'path'
+import ts from 'typescript'
 import { lowerCase, mergeObject } from './utils'
-
-function findup (name, cwd) {
-  let dir = path.resolve(cwd)
-  let target = ''
-  while (dir !== '') {
-    target = path.join(dir, name)
-    if (fs.existsSync(target)) {
-      return target
-    }
-    dir = dir.substring(0, dir.lastIndexOf(path.sep))
-  }
-  return null
-}
 
 function assertOption (options, name, cond) {
   let value = options[name]
@@ -28,36 +16,25 @@ function assertOption (options, name, cond) {
   }
 }
 
-class OptionContext {
-  constructor () {
-    this.options = {}
-    this.confFile = null
-    this.basePath = null
-  }
-
-  loadFileOptions (cwd = process.cwd()) {
-    let confFile = findup('tsconfig.json', cwd)
-    if (confFile !== null) {
-      this.confFile = confFile
-      this.basePath = path.dirname(confFile)
-      return JSON.parse(fs.readFileSync(confFile, 'utf-8'))
-    }
-    return null
-  }
-
-  mergeOptions (...opts) {
-    this.options = mergeObject(this.options, ...opts)
-  }
-
-  validateOptions () {
-    let opts = this.options.compilerOptions || {}
-    assertOption(opts, 'module', (value) => {
-      value = lowerCase(value)
-      return value === 'es2015' || value === 'es6'
-    })
-  }
+export function findTsConfig (cwd = process.cwd()) {
+  return ts.findConfigFile(cwd, ts.sys.fileExists)
 }
 
-export function createContext () {
-  return new OptionContext()
+export function loadTsConfig (confFile) {
+  if (confFile) {
+    return JSON.parse(fs.readFileSync(confFile, 'utf-8'))
+  }
+  return null
+}
+
+export function mergeOptions(...opts) {
+  return mergeObject({}, ...opts)
+}
+
+export function validateOptions () {
+  let opts = this.options.compilerOptions || {}
+  assertOption(opts, 'module', (value) => {
+    value = lowerCase(value)
+    return value === 'es2015' || value === 'es6'
+  })
 }
