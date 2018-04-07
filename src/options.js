@@ -22,9 +22,17 @@ export function findTsConfig (cwd = process.cwd()) {
 
 export function loadTsConfig (confFile) {
   if (confFile) {
-    return JSON.parse(fs.readFileSync(confFile, 'utf-8'))
+    return ts.parseConfigFileTextToJson(
+      confFile,
+      fs.readFileSync(confFile, 'utf-8')
+    )
   }
   return null
+}
+
+export function parseTsConfig (confFile, options) {
+  let basePath = path.dirname(confFile)
+  return ts.parseJsonConfigFileContent(options, ts.sys, basePath)
 }
 
 export function mergeOptions (...opts) {
