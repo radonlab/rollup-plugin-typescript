@@ -4,7 +4,6 @@
  * found in the LICENSE file.
  */
 
-import fs from 'fs'
 import path from 'path'
 import ts from 'typescript'
 import { lowerCase, mergeObject } from './utils'
@@ -22,10 +21,11 @@ export function findTsConfig (cwd = process.cwd()) {
 
 export function loadTsConfig (confFile) {
   if (confFile) {
-    return ts.parseConfigFileTextToJson(
+    let result = ts.parseConfigFileTextToJson(
       confFile,
-      fs.readFileSync(confFile, 'utf-8')
+      ts.sys.readFile(confFile)
     )
+    return result.config
   }
   return null
 }
