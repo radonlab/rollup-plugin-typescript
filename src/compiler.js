@@ -8,10 +8,9 @@ import ts from 'typescript'
 import serviceHost from './serviceHost'
 
 class Compiler {
-  constructor (compilerOptions) {
-    this.entities = new Set()
+  constructor (servOptions) {
     this.service = ts.createLanguageService(
-      serviceHost(this.entities, compilerOptions),
+      serviceHost(servOptions),
       ts.createDocumentRegistry()
     )
   }
@@ -39,8 +38,6 @@ class Compiler {
   }
 
   transpile (id, code) {
-    // add file entity
-    this.entities.add(id)
     // get compiled module
     let output = this.service.getEmitOutput(id)
     let result = this._convertResult(output)
@@ -53,7 +50,11 @@ class Compiler {
   }
 }
 
-export function createCompiler (ctx) {
-  let res = ts.parseJsonConfigFileContent(ctx.options, ts.sys, ctx.basePath)
-  return new Compiler(res.fileNames, res.options)
+export function createCompiler (parsedOptions) {
+  let entities = parsedOptions.fileNames
+  let compilerOptions = parsedOptions.options
+  return new Compiler({
+    entities,
+    compilerOptions
+  })
 }

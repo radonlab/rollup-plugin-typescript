@@ -7,7 +7,7 @@
 import fs from 'fs'
 import ts from 'typescript'
 
-export default function (entities, compilerOptions) {
+export default function (servOptions) {
   const cache = new Map()
 
   function getEntity (filename) {
@@ -27,7 +27,7 @@ export default function (entities, compilerOptions) {
 
   return {
     getScriptFileNames () {
-      return Array.from(entities)
+      return servOptions.entities
     },
     getScriptVersion (filename) {
       return getEntity(filename).version
@@ -39,7 +39,7 @@ export default function (entities, compilerOptions) {
       return process.cwd()
     },
     getCompilationSettings () {
-      return compilerOptions
+      return servOptions.compilerOptions
     },
     getDefaultLibFileName (options) {
       return ts.getDefaultLibFilePath(options)

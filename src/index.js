@@ -11,7 +11,8 @@ import {
   findTsConfig,
   loadTsConfig,
   mergeOptions,
-  validateOptions
+  validateOptions,
+  parseTsConfig
 } from './options'
 import { createCompiler } from './compiler'
 
@@ -31,8 +32,8 @@ export default function typescript (pluginOptions) {
   let fileOptions = loadTsConfig(confFile)
   let options = mergeOptions(defaultOptions, fileOptions, pluginOptions)
   validateOptions(options)
-  let compilerOptions = options.compilerOptions
-  let compiler = createCompiler(compilerOptions)
+  let parsedOptions = parseTsConfig(confFile, options)
+  let compiler = createCompiler(parsedOptions)
   let filter = utils.createFilter(config.include, config.exclude)
 
   return {
