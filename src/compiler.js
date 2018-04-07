@@ -17,7 +17,7 @@ class Compiler {
 
   _convertResult (output) {
     let result = {
-      content: undefined,
+      content: '',
       sourceMap: undefined
     }
     output.outputFiles.forEach(out => {
