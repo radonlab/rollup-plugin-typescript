@@ -19,6 +19,7 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
+    "chalk": "^2.3.2",
     "rollup-pluginutils": "^2.0.1"
   },
   "devDependencies": {
