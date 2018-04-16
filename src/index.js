@@ -6,6 +6,7 @@
 
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
+import logger from './logger'
 import resolveHost from './resolveHost'
 import {
   findTsConfig,
