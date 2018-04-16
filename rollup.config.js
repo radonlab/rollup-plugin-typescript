@@ -3,6 +3,7 @@ export default {
   external: [
     'fs',
     'path',
+    'chalk',
     'rollup-pluginutils',
     'typescript'
   ],
