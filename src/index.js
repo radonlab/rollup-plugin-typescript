@@ -9,7 +9,7 @@ import utils from 'rollup-pluginutils'
 import logger from './logger'
 import resolveHost from './resolveHost'
 import {
-  findTsConfig,
+  initContext,
   loadTsConfig,
   mergeOptions,
   validateOptions,
@@ -29,11 +29,10 @@ const defaultOptions = {
 }
 
 export default function typescript (pluginOptions) {
-  let confFile = findTsConfig()
-  let fileOptions = loadTsConfig(confFile)
-  let options = mergeOptions(defaultOptions, fileOptions, pluginOptions)
+  initContext()
+  let options = mergeOptions(defaultOptions, loadTsConfig(), pluginOptions)
   validateOptions(options)
-  let parsedOptions = parseTsConfig(confFile, options)
+  let parsedOptions = parseTsConfig(options)
   let compiler = createCompiler(parsedOptions)
   let filter = utils.createFilter(config.include, config.exclude)
 
