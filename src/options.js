@@ -22,9 +22,9 @@ export function initContext () {
   }
   let confFile = ts.findConfigFile(process.cwd(), ts.sys.fileExists)
   if (confFile) {
-  context.confFile = confFile
-  context.basePath = path.dirname(confFile)
-}
+    context.confFile = confFile
+    context.basePath = path.dirname(confFile)
+  }
   return context
 }
 
@@ -33,28 +33,24 @@ export function loadConfig (context) {
   if (!confFile) {
     return null
   }
-    let result = ts.parseConfigFileTextToJson(
-      confFile,
-      ts.sys.readFile(confFile)
-    )
-    return result.config
-  }
-  return null
-}
-
-export function parseTsConfig (confFile, options) {
-  let basePath = path.dirname(confFile)
-  return ts.parseJsonConfigFileContent(options, ts.sys, basePath)
+  let result = ts.parseConfigFileTextToJson(
+    confFile,
+    ts.sys.readFile(confFile)
+  )
+  return result.config
 }
 
 export function mergeOptions (...opts) {
   return mergeObject({}, ...opts)
 }
 
-export function validateOptions (options) {
+export function parseOptions (context, options) {
   let opts = options.compilerOptions || {}
+  // validate compiler options
   assertOption(opts, 'module', value => {
     value = lowerCase(value)
     return value === 'es2015' || value === 'es6'
   })
+  let basePath = context.basePath
+  return ts.parseJsonConfigFileContent(options, ts.sys, basePath)
 }

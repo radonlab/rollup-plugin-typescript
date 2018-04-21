@@ -12,8 +12,7 @@ import {
   initContext,
   loadConfig,
   mergeOptions,
-  validateOptions,
-  parseTsConfig
+  parseOptions
 } from './options'
 import { createCompiler } from './compiler'
 
