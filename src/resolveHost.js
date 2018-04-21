@@ -6,19 +6,21 @@
 
 import fs from 'fs'
 
-export default {
-  directoryExists (dirPath) {
-    try {
-      return fs.statSync(dirPath).isDirectory()
-    } catch (e) {
-      return false
-    }
-  },
-  fileExists (filePath) {
-    try {
-      return fs.statSync(filePath).isFile()
-    } catch (e) {
-      return false
+export default function () {
+  return {
+    directoryExists (dirPath) {
+      try {
+        return fs.statSync(dirPath).isDirectory()
+      } catch (e) {
+        return false
+      }
+    },
+    fileExists (filePath) {
+      try {
+        return fs.statSync(filePath).isFile()
+      } catch (e) {
+        return false
+      }
     }
   }
 }
