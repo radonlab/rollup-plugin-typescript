@@ -10,7 +10,7 @@ import logger from './logger'
 import resolveHost from './resolveHost'
 import {
   initContext,
-  loadTsConfig,
+  loadConfig,
   mergeOptions,
   validateOptions,
   parseTsConfig
@@ -29,8 +29,9 @@ const defaultOptions = {
 }
 
 export default function typescript (pluginOptions) {
-  initContext()
-  let options = mergeOptions(defaultOptions, loadTsConfig(), pluginOptions)
+  let context = initContext()
+  let fileOptions = loadConfig(context)
+  let options = mergeOptions(defaultOptions, fileOptions, pluginOptions)
   validateOptions(options)
   let parsedOptions = parseTsConfig(options)
   let compiler = createCompiler(parsedOptions)

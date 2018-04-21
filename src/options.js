@@ -28,9 +28,11 @@ export function initContext () {
   return context
 }
 
-export function loadTsConfig () {
+export function loadConfig (context) {
   let confFile = context.confFile
-  if (confFile) {
+  if (!confFile) {
+    return null
+  }
     let result = ts.parseConfigFileTextToJson(
       confFile,
       ts.sys.readFile(confFile)
