@@ -15,17 +15,17 @@ function assertOption (options, name, cond) {
   }
 }
 
-export const context = {
-  confFile: '',
-  basePath: ''
-}
-
 export function initContext () {
+  let context = {
+    confFile: undefined,
+    basePath: undefined
+  }
   let confFile = ts.findConfigFile(process.cwd(), ts.sys.fileExists)
   if (confFile) {
   context.confFile = confFile
   context.basePath = path.dirname(confFile)
 }
+  return context
 }
 
 export function loadTsConfig () {
