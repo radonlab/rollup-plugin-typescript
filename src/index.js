@@ -31,8 +31,7 @@ export default function typescript (pluginOptions) {
   let context = initContext()
   let fileOptions = loadConfig(context)
   let options = mergeOptions(defaultOptions, fileOptions, pluginOptions)
-  validateOptions(options)
-  let parsedOptions = parseTsConfig(options)
+  let parsedOptions = parseOptions(context, options)
   let compiler = createCompiler(parsedOptions)
   let filter = utils.createFilter(config.include, config.exclude)
 
