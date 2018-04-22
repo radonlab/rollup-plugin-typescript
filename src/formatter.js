@@ -15,3 +15,7 @@ export function formatDiagnostic (diagnostic) {
   return `TS${diagnostic.code} ${name}(${pos.line + 1}:${pos.character + 1})
   ${message}`
 }
+
+export function formatError (err) {
+  return `TS${err.code} ${err.messageText}`
+}
