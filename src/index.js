@@ -6,7 +6,6 @@
 
 import ts from 'typescript'
 import utils from 'rollup-pluginutils'
-import logger from './logger'
 import resolveHost from './resolveHost'
 import {
   initContext,
@@ -26,7 +25,7 @@ export default function typescript (pluginOptions) {
 
   if (parsedOptions.errors) {
     parsedOptions.errors.forEach((err) => {
-      logger.error(formatError(err))
+      console.log(formatError(err))
     })
     process.exit(1)
   }
