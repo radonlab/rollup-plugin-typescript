@@ -20,6 +20,19 @@ export function isArray (value) {
   return _toString.call(value) === '[object Array]'
 }
 
+export function isEmpty (value) {
+  if (value == null) {
+    return true
+  }
+  if (isArray(value)) {
+    return value.length === 0
+  }
+  if (isObject(value)) {
+    return Object.keys(value).length === 0
+  }
+  return false
+}
+
 export function mergeObject (dst, ...srcs) {
   if (!isObject(dst)) {
     throw new TypeError('First argument must be an object')
