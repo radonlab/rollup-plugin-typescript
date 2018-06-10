@@ -8,6 +8,12 @@ import path from 'path'
 import ts from 'typescript'
 import { lowerCase, mergeObject } from './utils'
 
+const defaultOptions = {
+  compilerOptions: {
+    module: 'es2015'
+  }
+}
+
 function assertOption (options, name, cond) {
   let value = options[name]
   if (!cond(value)) {
@@ -28,7 +34,7 @@ export function initContext () {
   return context
 }
 
-export function loadConfig (context) {
+function loadTsConfig (context) {
   let confFile = context.confFile
   if (!confFile) {
     return null
@@ -40,8 +46,9 @@ export function loadConfig (context) {
   return result.config
 }
 
-export function mergeOptions (...opts) {
-  return mergeObject({}, ...opts)
+export function getOptions (context, pluginOptions) {
+  let fileOptions = loadTsConfig(context)
+  return mergeObject({}, defaultOptions, fileOptions, pluginOptions)
 }
 
 export function parseOptions (context, options) {
