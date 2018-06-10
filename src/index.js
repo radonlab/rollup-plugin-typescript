@@ -10,30 +10,20 @@ import logger from './logger'
 import resolveHost from './resolveHost'
 import {
   initContext,
-  loadConfig,
-  mergeOptions,
+  getOptions,
   parseOptions
 } from './options'
 import { createCompiler } from './compiler'
 
-const config = {
-  include: ['*.ts+(|x)', '**/*.ts+(|x)'],
-  exclude: ['*.d.ts', '**/*.d.ts']
-}
-
-const defaultOptions = {
-  compilerOptions: {
-    module: 'es2015'
-  }
-}
+const included = ['*.ts+(|x)', '**/*.ts+(|x)']
+const excluded = ['*.d.ts', '**/*.d.ts']
 
 export default function typescript (pluginOptions) {
   let context = initContext()
-  let fileOptions = loadConfig(context)
-  let options = mergeOptions(defaultOptions, fileOptions, pluginOptions)
+  let options = getOptions(context, pluginOptions)
   let parsedOptions = parseOptions(context, options)
   let compiler = createCompiler(parsedOptions)
-  let filter = utils.createFilter(config.include, config.exclude)
+  let filter = utils.createFilter(included, excluded)
 
   return {
     name: 'typescript',
