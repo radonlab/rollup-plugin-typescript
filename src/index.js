@@ -14,6 +14,7 @@ import {
   parseOptions
 } from './options'
 import { createCompiler } from './compiler'
+import { formatDiagnostic, formatError } from './formatter'
 
 const included = ['*.ts+(|x)', '**/*.ts+(|x)']
 const excluded = ['*.d.ts', '**/*.d.ts']
@@ -22,6 +23,14 @@ export default function typescript (pluginOptions) {
   let context = initContext()
   let options = getOptions(context, pluginOptions)
   let parsedOptions = parseOptions(context, options)
+
+  if (parsedOptions.errors) {
+    parsedOptions.errors.forEach((err) => {
+      logger.error(formatError(err))
+    })
+    process.exit(1)
+  }
+
   let compiler = createCompiler(parsedOptions)
   let filter = utils.createFilter(included, excluded)
 
