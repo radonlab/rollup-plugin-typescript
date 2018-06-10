@@ -18,8 +18,5 @@ export default {
   },
   error (...args) {
     console.log(ck.bold.red(...args))
-  },
-  fatal (...args) {
-    console.log(ck.bold.red(...args))
   }
 }
