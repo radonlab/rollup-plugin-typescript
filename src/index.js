@@ -64,7 +64,12 @@ export default function typescript (pluginOptions) {
       if (typeof sourceMap === 'string') {
         sourceMap = JSON.parse(sourceMap)
       }
-
+      if (!isEmpty(compiled.diagnostics)) {
+        compiled.diagnostics.forEach((d) => {
+          console.log(formatDiagnostic(d))
+        })
+        process.exit(1)
+      }
       return {
         code: compiled.outputText,
         map: sourceMap
