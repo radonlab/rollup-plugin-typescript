@@ -1,0 +1,7 @@
+{
+  "input": "src/index.js",
+  "output": {
+    "file": "dist/rollup-plugin-typescript.js",
+    "format": "cjs"
+  }
+}
