@@ -31,10 +31,11 @@ class Compiler {
   }
 
   _getDiagnostics (filename) {
-    let d0 = this.service.getCompilerOptionsDiagnostics()
-    let d1 = this.service.getSyntacticDiagnostics(filename)
-    let d2 = this.service.getSemanticDiagnostics(filename)
-    return d0.concat(d1, d2)
+    return [
+      ...this.service.getCompilerOptionsDiagnostics(),
+      ...this.service.getSyntacticDiagnostics(filename),
+      ...this.service.getSemanticDiagnostics(filename)
+    ]
   }
 
   transpile (id, code) {
@@ -51,7 +52,6 @@ class Compiler {
 }
 
 export function createCompiler (parsedOptions) {
-  let entities = parsedOptions.fileNames
-  let compilerOptions = parsedOptions.options
-  return new Compiler(entities, compilerOptions)
+  let { fileNames, options } = parsedOptions
+  return new Compiler(fileNames, options)
 }
