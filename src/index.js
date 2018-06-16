@@ -68,8 +68,9 @@ export default function typescript (pluginOptions) {
         compiled.diagnostics.forEach((d) => {
           console.log(formatDiagnostic(d))
         })
-        process.exit(1)
+        this.error('Failed to compile')
       }
+
       return {
         code: compiled.outputText,
         map: sourceMap
