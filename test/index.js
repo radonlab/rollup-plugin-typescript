@@ -1,9 +1,13 @@
 'use strict'
 
-const { expect } = require('chai')
+const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
 const rollup = require('rollup')
 const tsPlugin = require('..')
 
+const expect = chai.expect
+chai.use(chaiAsPromised)
+// to find tsconfig
 process.chdir(__dirname)
 
 function bundle (entry, options={}) {
@@ -54,4 +58,7 @@ describe('rollup-plugin-typescript', function () {
     })
   })
 
+  it('should get failed when type declaration omitted', function () {
+    return expect(bundle('sample/omitted.ts')).to.be.rejected
+  })
 })
