@@ -24,7 +24,7 @@ function assertOption (options, name, cond) {
 export function initContext () {
   let context = {
     confFile: undefined,
-    basePath: undefined
+    basePath: process.cwd()
   }
   let confFile = ts.findConfigFile(process.cwd(), ts.sys.fileExists)
   if (confFile) {
