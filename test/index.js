@@ -58,6 +58,12 @@ describe('rollup-plugin-typescript', function () {
     })
   })
 
+  it('should bundle node module correctly', function () {
+    return bundle('sample/imports3.ts').then(result => {
+      console.log(result)
+    })
+  })
+
   it('should get failed when type declaration omitted', function () {
     return expect(bundle('sample/omitted.ts')).to.be.rejected
   })
