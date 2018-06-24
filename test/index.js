@@ -10,12 +10,13 @@ chai.use(chaiAsPromised)
 // to find tsconfig
 process.chdir(__dirname)
 
-function bundle (entry, options={}) {
+function bundle (entry, pluginOptions = {}, rollupConfig = {}) {
   return rollup.rollup({
     input: entry,
     plugins: [
-      tsPlugin(options)
-    ]
+      tsPlugin(pluginOptions)
+    ],
+    ...rollupConfig
   }).then(chunk => {
     return chunk.generate({ format: 'es' })
   })
@@ -59,7 +60,9 @@ describe('rollup-plugin-typescript', function () {
   })
 
   it('should bundle node module correctly', function () {
-    return bundle('sample/imports3.ts').then(result => {
+    return bundle('sample/imports3.ts', {}, {
+      external: ['typescript']
+    }).then(result => {
       expect(result.code).to.have.string('console.log(version)')
     })
   })
