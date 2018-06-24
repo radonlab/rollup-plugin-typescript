@@ -43,6 +43,14 @@ export default function (entities, compilerOptions) {
     },
     getDefaultLibFileName (options) {
       return ts.getDefaultLibFilePath(options)
-    }
+    },
+    useCaseSensitiveFileNames () {
+      return ts.sys.useCaseSensitiveFileNames
+    },
+    getDirectories: ts.sys.getDirectories,
+    directoryExists: ts.sys.directoryExists,
+    fileExists: ts.sys.fileExists,
+    readDirectory: ts.sys.readDirectory,
+    readFile: ts.sys.readFile
   }
 }
